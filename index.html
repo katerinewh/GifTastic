@@ -23,7 +23,7 @@
         <!-- Rendered buttons will get dumped here  -->
         <div id="buttons-view"></div>
         <button data-image="trash panda">
-            trash panda
+            Trash Panda
         </button>
         <button data-image="dangernoodle">
             Dangernoodle
@@ -32,59 +32,61 @@
             Office Monkey
         </button>
         <button data-image="grumpy cat">
-           Grumpy Cat
+            Grumpy Cat
         </button>
-        <div id="images"></div>
-        <form id="giphy-form">
-            <label for="giphy-input">Add your own GIF!</label>
-            <input type="text" id="giphy-input"><br>
+    </div>
+    <div id="images"></div>
+    <form id="giphy-form">
+        <label for="giphy-input">Add your own GIF!</label>
+        <input type="text" id="giphy-input"><br>
+        <input id="add-giphy" type="submit" value="Submit">
+    </form>
 
-            <!-- Button triggers new giphy to be added -->
-            <input id="add-giphy" type="submit" value="">
-        </form>
+    <!-- Button triggers new giphy to be added>-->
+    <!-- <input id="add-giphy" type="submit" value=""> -->
 
-        <!-- giphy will get dumped Here -->
-        <div id="giphy-view"></div>
+    <div id="giphy-view">
+    </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script type="text/javascript">
-            // Initial array of giphy
-            var giphy = ["Trash Pandas", "Office Monkey", "Dangernoodle", "Grumpy Cat"];
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        // Initial array of giphy
+        var giphy = ["Trash Pandas", "Office Monkey", "Dangernoodle", "Grumpy Cat"];
 
-            // displaygifInfo function re-renders the HTML to display the appropriate content
-            
-                $("button").on("click", function () {
-                    var giphy = $(this).attr("data-name");
-                    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + giphy + "&api_key=VXpFkCzEj2mRH1qCkrRIOAcCF3OCT7yi";
+        // displaygifInfo function re-renders the HTML to display the appropriate content
 
-                    // Creates AJAX call for the specific movie button being clicked
-                    $.ajax({
-                        url: queryURL,
-                        method: "GET"
-                    }).then(function (response) {
-                        console.log(queryURL);
-                        console.log(response);
-                        var results = response.data
-                        for (var i = 0; i < results.length; i++) {
-                            var gifDiv = $("<div>");
-                            var rating = results[i].rating;
-                            var p = $("<p>").text("Rating: " + rating);
-                            var image = $("<img>");
-                            image.attr("src", results[i].images.fixed_height.url)
+        $("button").on("click", function () {
+            var giphy = $(this).attr("data-name");
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + giphy + "&api_key=VXpFkCzEj2mRH1qCkrRIOAcCF3OCT7yi";
 
-                            gifDiv.prepend(p);
-                            gifDiv.prepend(image);
-                            $("#gifs-appear-here").prepend(gifDiv);
-                        }
-                    });
+            // Creates AJAX call for the specific movie button being clicked
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (response) {
+                console.log(queryURL);
+                console.log(response);
+                var results = response.data
+                for (var i = 0; i < results.length; i++) {
+                    var gifDiv = $("<div>");
+                    var rating = results[i].rating;
+                    var p = $("<p>").text("Rating: " + rating);
+                    var image = $("<img>");
+                    image.attr("src", results[i].images.fixed_height.url)
 
-                });
-    
+                    gifDiv.prepend(p);
+                    gifDiv.prepend(image);
+                    $("#giphy-view").prepend(gifDiv);
+                }
+            });
+
+        });
 
 
-               
 
-        </script>
+
+
+    </script>
     </div>
 </body>
 
