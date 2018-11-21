@@ -1,4 +1,5 @@
 // giphy function request
+var giphy=[];
 function makeAPICallToGiphy(queryItem) {
     var queryUrl = "https://api.giphy.com/v1/gifs/search";
     var apiKey = "yYDt1ePPYlkEs6RxWknbyssj8azDK2NH";
@@ -34,7 +35,7 @@ function makeAPICallToGiphy(queryItem) {
             $("#gif-container").append(img);
         }
     });
-    var giphy = $(this).attr("data-image");
+    // giphy = $(this).attr("data-image");
 }
 
 // pause & animate functions
@@ -78,7 +79,8 @@ $("#add-giphy").on("click", function (event) {
     var inputValue = $("#giphy-input").val();
     console.log(inputValue);
     giphy.push(inputValue);
-    renderButtons();
+    var button= document.createElement("button");
+      
 })
 //  clicking on an existing button
 $(document).on("click", ".giphy", function () {
@@ -86,3 +88,6 @@ $(document).on("click", ".giphy", function () {
     var inputValue = $(this).text();
     getGiphy(inputValue);
 });
+function renderButton(){
+
+};
