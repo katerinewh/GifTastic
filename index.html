@@ -18,6 +18,7 @@
     <div class="git-container">
         <h1>Giphy Search</h1>
         <p>Click the buttons below to load .gifs or choose your own topic!</p>
+
         <!-- Rendered buttons will get dumped here  -->
         <div class="button-container">
             <button class="gif-button" data-name="trash panda"> Trash Panda</button>
@@ -31,18 +32,25 @@
             <button class="gif-button" data-name="snark"> Snark</button>
             <button class="gif-button" data-name="whatever"> Whatever</button>
         </div>
+        <div class="container">
+            <br>
 
-        <div style="float:rleft; margin-top:40px; margin-bottom: 40px">
-            <h4>Add your own .gif!</h4>
-            <form id="gif-form">
-                <label for="gif-input"></label>
-                <input type="text" value="" id="gif-input"><br><br>
-                <!--Creates the submit button-->
-                <input type="submit" name="Button" class="btn btn-success" id="theButton" style="margin-left:8px">
-            </form>
+            <div id="buttons-view"></div>
+
         </div>
+        <div id="images"></div>
+        <form id="giphy-form">
+            <label for="giphy-input"></label>
+            <input type="text" id="giphy-input"><br>
+            <input id="add-giphy" type="submit">
+            <!-- Button triggers new giphy to be added>-->
+            <!-- <input id="add-giphy" type="submit" value=""> -->
+        </form>
 
+        <br>
         <div id="gif-container"></div>
+
+
 
         <script src="assets/javascript/app.js"></script>
 </body>

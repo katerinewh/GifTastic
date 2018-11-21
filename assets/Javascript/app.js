@@ -1,4 +1,4 @@
-// make a function that make a request to giphy
+// giphy function request
 function makeAPICallToGiphy(queryItem) {
     var queryUrl = "https://api.giphy.com/v1/gifs/search";
     var apiKey = "yYDt1ePPYlkEs6RxWknbyssj8azDK2NH";
@@ -15,7 +15,7 @@ function makeAPICallToGiphy(queryItem) {
 
     console.log("Our request url is " + queryUrlWithParams);
 
-    // make a request to the giphy search API
+    //giphy search 
     $.ajax({
         url: queryUrlWithParams,
         method: "GET"
@@ -23,8 +23,7 @@ function makeAPICallToGiphy(queryItem) {
         var imagesArr = response.data;
         console.log(imagesArr);
         $("#gif-container").empty();
-        // take all the fixed_height images from the response 
-        // and display on the page
+    //    adding attributes for the pause/animate
         for (var i = 0; i < imagesArr.length; i++) {
             var img = $("<img>");
             img.addClass("gif-image");
@@ -35,25 +34,23 @@ function makeAPICallToGiphy(queryItem) {
             $("#gif-container").append(img);
         }
     });
+    var giphy = $(this).attr("data-image");
 }
 
-// when I click on one 
-// of the gifs it will go from still to animate 
-// and from animate to still
+// pause & animate functions
 $(document).on("click", ".gif-image", function (e) {
     e.preventDefault();
     var state = $(this).attr("data-state");
     var animateUrl = $(this).attr("data-animate");
     var stillUrl = $(this).attr("data-still");
     if (state === "still") {
-        // lets animate the img
-        // switch the src attribute to the value of data-animate
+        // animates image
         $(this).attr("src", animateUrl);
         // set the data-state value to "animate"
         $(this).attr("data-state", "animate");
+
     } else {
-        // lets make it still
-        // switch the src attribute to the value of data-still
+        // makes image still
         $(this).attr("src", stillUrl);
         // set the data-state value to "still"
         $(this).attr("data-state", "still");
@@ -74,10 +71,18 @@ $("#submit-form").on("click", function (e) {
     console.log(userName);
     $("#user-name-local").text(userName);
 
-    // setting an item in localStorage setItem
-    localStorage.setItem("username", userName);
 });
-
-// getting an item from localStorage with getItem
-var localUserName = localStorage.getItem("username");
-$("#user-name-local").text(localUserName);
+// form input...adding a button
+$("#add-giphy").on("click", function (event) {
+    event.preventDefault()
+    var inputValue = $("#giphy-input").val();
+    console.log(inputValue);
+    giphy.push(inputValue);
+    renderButtons();
+})
+//  clicking on an existing button
+$(document).on("click", ".giphy", function () {
+    // $("button").on("click", function () {
+    var inputValue = $(this).text();
+    getGiphy(inputValue);
+});
