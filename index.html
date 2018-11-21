@@ -2,138 +2,49 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Giftastic</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Giphtastic</title>
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300" type="text/css" />
-
-    <style type="text/css">
-        button,
-        div,
-        form,
-        input {
-            margin: 10px;
-        }
-    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 </head>
+
 
 <body>
 
-    <div class="container">
+    <div class="git-container">
         <h1>Giphy Search</h1>
-
+        <p>Click the buttons below to load .gifs or choose your own topic!</p>
         <!-- Rendered buttons will get dumped here  -->
-        <div id="buttons-view"></div>
+        <div class="button-container">
+            <button class="gif-button" data-name="trash panda"> Trash Panda</button>
+            <button class="gif-button" data-name="wine"> Wine</button>
+            <button class="gif-button" data-name="better off dead"> Better off Dead</button>
+            <button class="gif-button" data-name="schrute"> Schrute</button>
+            <button class="gif-button" data-name="sarcasm"> Sarcasm</button>
+            <button class="gif-button" data-name="funny cat"> Funny Cat</button>
+            <button class="gif-button" data-name="funny or die"> Funny or Die</button>
+            <button class="gif-button" data-name="doge"> Doge</button>
+            <button class="gif-button" data-name="snark"> Snark</button>
+            <button class="gif-button" data-name="whatever"> Whatever</button>
+        </div>
 
-    </div>
-    <div id="images"></div>
-    <form id="giphy-form">
-        <label for="giphy-input">Add your own GIF!</label>
-        <input type="text" id="giphy-input"><br>
-        <input id="add-giphy" type="submit">
-    </form>
+        <div style="float:rleft; margin-top:40px; margin-bottom: 40px">
+            <h4>Add your own .gif!</h4>
+            <form id="gif-form">
+                <label for="gif-input"></label>
+                <input type="text" value="" id="gif-input"><br><br>
+                <!--Creates the submit button-->
+                <input type="submit" name="Button" class="btn btn-success" id="theButton" style="margin-left:8px">
+            </form>
+        </div>
 
-    <!-- Button triggers new giphy to be added>-->
-    <!-- <input id="add-giphy" type="submit" value=""> -->
+        <div id="gif-container"></div>
 
-    <div id="giphy-view">
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        // Initial array of giphy
-        var giphy = ["Trash Pandas", "Office Monkey", "Doge", "Grumpy Cat"];
-
-        // displaygifInfo function re-renders the HTML to display the appropriate content
-
-        function getGiphy(giphy) {
-
-
-            // var giphy = $(this).attr("data-image");
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + giphy + "&api_key=VXpFkCzEj2mRH1qCkrRIOAcCF3OCT7yi";
-
-            // Creates AJAX call for the specific movie button being clicked
-            $.ajax({
-                url: queryURL,
-                method: "GET"
-            }).then(function (response) {
-                console.log(queryURL);
-                console.log(response);
-                var results = response.data
-                for (var i = 0; i < results.length; i++) {
-                    var gifDiv = $("<div>");
-                    var rating = results[i].rating;
-                    var p = $("<p>").text("Rating: " + rating);
-                    var image = $("<img>");
-                    image.attr("src", results[i].images.fixed_height.url);
-                    image.attr("data-still", results[i].images.fixed_height_still.url);
-                    image.attr("data-animate", results[i].images.original.url);
-                    image.attr("class", "images")
-                    image.attr("data-state", "still");
-                    // image.attr("data-animate='https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif'" data-state="still" class="gif")
-
-
-                    gifDiv.prepend(p);
-                    gifDiv.prepend(image);
-                    $("#giphy-view").prepend(gifDiv);
-                }
-            });
-
-        }
-        function renderButtons() {
-            $("#buttons-view").empty();
-            for (var i = 0; i < giphy.length; i++) {
-                // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
-                var a = $("<button>");
-                // Adds a class of movie to our button
-                a.addClass("giphy");
-                // Added a data-attribute
-                a.attr("data-name", giphy[i]);
-                // Provided the initial button text
-                a.text(giphy[i]);
-                // Added the button to the buttons-view div
-                $("#buttons-view").append(a);
-
-            }
-        }
-
-
-        // form input...adding a button
-        $("#add-giphy").on("click", function (event) {
-            event.preventDefault()
-            var inputValue = $("#giphy-input").val();
-            console.log(inputValue);
-            giphy.push(inputValue);
-            renderButtons();
-        })
-
-        //  clicking on an existing button
-        $(document).on("click", ".giphy", function () {
-            // $("button").on("click", function () {
-            var inputValue = $(this).text();
-            getGiphy(inputValue);
-
-        });
-
-        // add pause functions
-        $(".gif").on("click", function () {
-            var state = $(this).attr("data-state");
-            var still = $(this).attr("data-still");
-            var animate = $(this).attr("data-animate");
-            if (state === "still") {
-                $(this).attr("src", $(this).attr("data-animate"));
-                $(this).attr("data-state", "animate");
-            } else {
-                $(this).attr("src", $(this).attr("data-still"));
-                $(this).attr("data-state", "still");
-            }
-        });
-        renderButtons()
-
-
-
-    </script>
-    </div>
+        <script src="assets/javascript/app.js"></script>
 </body>
 
 </html>
