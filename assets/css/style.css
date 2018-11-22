@@ -1,6 +1,6 @@
 body {
-	width: 100wh;
-	height: 90vh;
+	/* width: 100wh;
+	height: 90vh; */
 	color: #fff;
 	background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
 	background-size: 400% 400%;
@@ -21,6 +21,14 @@ h4{
     border: 2px solid black;
     border-radius: 8px;
 }
+#gif-container{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around
+}
+
+
+
 @-webkit-keyframes Gradient {
 	0% {
 		background-position: 0% 50%
