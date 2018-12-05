@@ -2,7 +2,7 @@
 var giphy = [];
 function makeAPICallToGiphy(queryItem) {
     var queryUrl = "https://api.giphy.com/v1/gifs/search";
-    var apiKey = "yYDt1ePPYlkEs6RxWknbyssj8azDK2NH";
+    var apiKey = "VXpFkCzEj2mRH1qCkrRIOAcCF3OCT7yi";
     var params = "?" + $.param({
         api_key: apiKey,
         q: queryItem,
